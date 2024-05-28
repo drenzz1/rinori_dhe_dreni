@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#" style="margin-left: 20px;">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ng-container *ngIf="isAdmin() | async">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard/users">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/league">League</a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" routerLink="/match">Match</a>-->
+<!--        </li>-->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/transfer">Transfer</a>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" routerLink="/seasons">Seasons</a>-->
+<!--        </li>-->
+
+      </ul>
+    </ng-container>
+    <ng-container *ngIf="isClub() | async">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/club">Your Club</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/players">Players</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/create-player">Create Player</a>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+  <div class="notification-container">
+    <a class="nav-link" routerLink="/sidebar">Sidebar</a>
+    <app-notification-status *ngIf="authService.isAuthenticated | async"></app-notification-status>
+<!--    <span *ngIf="hasNotifications" class="notification-badge">!</span>-->
+  </div>
+  <ng-container *ngIf="authService.isAuthenticated | async" class="navbar-text" style="margin-right: 20px;">
+    <a *ngIf="authService.isAuthenticated | async" class="nav-link profile-link" [routerLink]="['/profile', userId]">
+      Your Profile
+    </a>
+  </ng-container>
+
+  <div class="ml-auto" style="margin-right: 50px; margin-left: 30px;">
+    <app-loginstatus></app-loginstatus>
+    <a *ngIf="!(authService.isAuthenticated | async)" class="btn btn-outline-primary" routerLink="/register" style="margin-left: 20px;">Register</a>
+  </div>
+</nav>
+<router-outlet></router-outlet>
